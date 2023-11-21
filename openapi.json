@@ -1,0 +1,135 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Safeguard Kids API",
+    "description": "API para el sistema de seguridad del hogar Safeguard Kids",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/camaras": {
+      "get": {
+        "summary": "Obtener lista de cámaras",
+        "description": "Retorna una lista de todas las cámaras disponibles.",
+        "responses": {
+          "200": {
+            "description": "Lista de cámaras obtenida exitosamente.",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 1,
+                    "nombre": "Cámara de Entrada"
+                  },
+                  {
+                    "id": 2,
+                    "nombre": "Cámara de Salón"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camaras/{id}": {
+      "get": {
+        "summary": "Ver detalles de una cámara por ID",
+        "description": "Retorna detalles específicos de la cámara con el ID proporcionado.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID de la cámara",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalles de la cámara obtenidos exitosamente.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": 1,
+                  "nombre": "Cámara de Entrada",
+                  "ubicacion": "Entrada Principal"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cámara no encontrada."
+          }
+        }
+      }
+    },
+    "/recordatorios": {
+      "get": {
+        "summary": "Obtener lista de recordatorios",
+        "description": "Retorna una lista de todos los recordatorios programados.",
+        "responses": {
+          "200": {
+            "description": "Lista de recordatorios obtenida exitosamente.",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 1,
+                    "mensaje": "Revisar cámaras a las 8 PM"
+                  },
+                  {
+                    "id": 2,
+                    "mensaje": "Activar alarma antes de salir"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notificaciones": {
+      "post": {
+        "summary": "Recibir notificaciones",
+        "description": "Crea una nueva notificación y la procesa para el usuario.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificacionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Notificación recibida exitosamente.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": 3,
+                  "mensaje": "Notificación recibida con éxito."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NotificacionInput": {
+        "type": "object",
+        "properties": {
+          "mensaje": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
