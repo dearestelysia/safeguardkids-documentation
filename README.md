@@ -3,5 +3,7 @@ OpenAPI documentation for Safeguard Kids API. Includes endpoints for managing ca
 Key Features:
 
 /cameras
+
 /reminders
+
 /notifications
